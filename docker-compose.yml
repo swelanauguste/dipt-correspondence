@@ -1,0 +1,47 @@
+services:
+  web:
+    build: ./app
+    # command: gunicorn cf.wsgi:application --bind 0.0.0.0:8004
+    volumes:
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
+    env_file:
+      - ./.env
+    # expose:
+    #   - 8003
+    ports:
+      - 8003:8003
+    restart: unless-stopped
+
+  knowledge_base:
+    build: ./app
+    volumes:
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
+    env_file:
+      - ./.env
+    expose:
+      - 8004
+    restart: unless-stopped
+
+  db:
+    image: postgres:17rc1-bookworm
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+    restart: unless-stopped
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
+    ports:
+      - 80:80
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
