@@ -6,8 +6,16 @@ from django.shortcuts import reverse
 from django.utils.text import slugify
 
 
+class Department(models.Model):
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, unique=True, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
 class User(AbstractUser):
-    is_reviewer = models.BooleanField(default=False)
+    is_creator = models.BooleanField(default=False)
     is_manager = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
     uid = models.UUIDField(default=uuid.uuid4, editable=False)
