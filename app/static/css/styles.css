@@ -1,0 +1,47 @@
+body, html {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* body {
+    background-color: #DFDBE5;
+    background-image: url("../images/texture.svg");
+  } */
+  
+  
+  .hide-me {
+    -webkit-animation: cssAnimation 7s forwards;
+    animation: cssAnimation 7s forwards;
+  }
+  
+  @keyframes cssAnimation {
+    0% {
+        opacity: 1;
+    }
+  
+    90% {
+        opacity: 1;
+    }
+  
+    100% {
+        opacity: 0;
+    }
+  }
+  
+  @-webkit-keyframes cssAnimation {
+    0% {
+        opacity: 1;
+    }
+  
+    90% {
+        opacity: 1;
+    }
+  
+    100% {
+        opacity: 0;
+    }
+  }
+  

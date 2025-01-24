@@ -8,6 +8,8 @@ from users.models import User
 
 
 class Incoming(models.Model):
+    conf = models.BooleanField("is confidential",default=False)
+    urgent = models.BooleanField("is urgent", default=False)
     uid = models.UUIDField(default=uuid.uuid4, editable=False)
     slug = models.SlugField(unique=True, blank=True, null=True, max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -18,10 +20,8 @@ class Incoming(models.Model):
     updated_by = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="incoming_updated_by"
     )
-    received = models.DateTimeField(default=timezone.now)
+    received = models.DateField(default=timezone.now)
     r_from = models.CharField("received from", max_length=255)
-    conf = models.BooleanField(default=False)
-    urgent = models.BooleanField(default=False)
     note = models.TextField(blank=True, null=True)
     sender = models.TextField(blank=True, null=True)
     dated = models.DateField()

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<h1>Incoming</h1>
+<hr>
+<div class="">
+   <a class="add-btn"
+      href="{% url 'incoming-create' %}">Add</a>
+   <br><br>
+   {% for ob in object_list %}
+   <p><a class="fw-bold text-dark" href="{{ob.get_absolute_url}}">{{forloop.counter}}. {{ob.subject}}</a></p>
+   {% empty %}
+   <p>No incoming</p>
+   {% endfor %}
+
+</div>
+
+{% endblock content %}

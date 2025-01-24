@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="col-lg-3 mx-auto p-3 border rounded-5 shadow-lg text-bg-light">
+        <h1 class="display-4 text-center fw-bold">Login</h1>
+        <hr>
+        <form action=""
+            method="post">
+            {% csrf_token %}
+            {{form|crispy}}
+            <br>
+            <div class="d-grid">
+                <button type="submit">Login</button>
+            </div>
+        </form>
+        <br>
+        <p class="text-end"><a class="text-decration-none text-dark" href="{% url 'forgot-password' %}">Forgot
+                password</a></p>
+        <p class="text-end"><a class="text-decration-none text-muted me-2"
+                href="/">Cancel</a></p>
+    </div>
+{% endblock content %}

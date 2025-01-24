@@ -1,0 +1,15 @@
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <div style="position: fixed; left:5%; bottom:5%; width:fit-content; z-index:1000; max-width:18rem;"
+        class="hide-me alert small rounded-4 {% if message.tags %} alert-{{message.tags}} border-{{message.tags}} {% else %} alert-info border-info {% endif %} alert-dismissible fade show"
+        role="alert">
+        <strong class="d-flex flex-wrap">{{ message }}</strong>
+        <button type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"></button>
+    </div>
+    {% endfor %}
+</ul>
+{% endif %}
