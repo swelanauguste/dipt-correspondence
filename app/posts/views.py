@@ -1,24 +1,64 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from urllib.parse import urlencode
 
-from .forms import IncomingForm, IncomingCommentForm
+from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from users.user_permissions import CreatorAccessMixin
+
+from .forms import IncomingCommentForm, IncomingForm
 from .models import Incoming, IncomingComment, Outgoing, OutgoingComment
 
 
-class IncomingListView(ListView):
+class IncomingListView(CreatorAccessMixin, ListView):
     model = Incoming
+    paginate_by = 1
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
 
-class IncomingDetailView(DetailView):
-    model = Incoming
+        # Retrieve and apply filter parameters
+        query = self.request.GET.get("q")
+        urgent = self.request.GET.get("urgent")
+        conf = self.request.GET.get("conf")
+
+        if query:
+            queryset = queryset.filter(
+                Q(note__icontains=query)
+                | Q(r_from__icontains=query)
+                | Q(sender__icontains=query)
+                | Q(subject__icontains=query)
+                | Q(phone__icontains=query)
+                | Q(phone__icontains=query)
+            )
+        if urgent == "1":
+            queryset = queryset.filter(urgent=True)
+
+        if conf == "1":
+            queryset = queryset.filter(conf=True)
     
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["comments_form"] = IncomingCommentForm
+
+        # Preserve query parameters for pagination
+        query_params = self.request.GET.copy()
+        if "page" in query_params:
+            query_params.pop(
+                "page"
+            )  # Remove 'page' from query parameters to prevent duplication
+        context["query_params"] = urlencode(query_params)
+
         return context
 
 
-class IncomingUpdateView(UpdateView):
+class IncomingDetailView(CreatorAccessMixin, DetailView):
+    model = Incoming
+
+
+class IncomingUpdateView(CreatorAccessMixin, UpdateView):
     model = Incoming
     form_class = IncomingForm
 
@@ -27,7 +67,7 @@ class IncomingUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class IncomingCreateView(CreateView):
+class IncomingCreateView(CreatorAccessMixin, CreateView):
     model = Incoming
     form_class = IncomingForm
 

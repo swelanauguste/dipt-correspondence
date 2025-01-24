@@ -36,6 +36,7 @@
 <body class="small text-bg-primary">
     {% if not request.user.is_authenticated %}
     <div class="text-end p-3 bg-white">
+        
         <a href="{% url 'login' %}"
             class="fw-bold text-dark">Sign
             in</a>
@@ -49,7 +50,7 @@
     {% include 'nav.html' %}
     {% endif %}
 
-    <div class="container-fluid py-3 min-vh-100">
+    <div class="container py-3 min-vh-100">
         {% block content %}
 
         {% endblock content %}

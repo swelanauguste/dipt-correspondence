@@ -56,7 +56,7 @@ ROOT_URLCONF = "cf.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -160,8 +160,8 @@ PASSWORD_RESET_TIMEOUT = 3600
 SITE_ID = 1
 
 # Redirect URLs
-LOGIN_REDIRECT_URL = "/"
-LOGIN_URL = "/users/"
+LOGIN_REDIRECT_URL = "user-detail"
+LOGIN_URL = "/"
 LOGOUT_URL = "/"
 
 # Email settings

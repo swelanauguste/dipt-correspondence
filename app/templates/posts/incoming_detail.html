@@ -18,7 +18,7 @@
 <hr>
 
 <div class="text-bg-light  
-    {% if object.conf %} border-danger border border-3 {% endif %} p-5 shadow col-lg-4 mx-auto"
+    {% if object.conf %} border-danger border border-3 {% endif %} p-5 shadow col-lg-5 mx-auto"
     style="height: fit-content;">
     <p class="text-end me-3"><a class="edit-btn"
             href="{% url 'incoming-update' object.slug %}">Edit</a>
@@ -34,8 +34,8 @@
         <a href="tel:{{object.phone}}"> {{object.phone1}}</a>
     </p>
     {% if object.file %}
-    <p><strong>Doc: </strong><a
-            href="{{object.file.url}}">{{object.file.url}}</a></p>
+    <p><strong>Doc: </strong><a title="{{object.file.name|cut:'incoming/'}}"
+            href="{{object.file.url}}">{{object.file.name|truncatechars:40|cut:"incoming/"}}</a></p>
     {% endif %}
     <p><strong>Notes: </strong>{{object.note|default:'-'}}</p>
     <p class="text-muted small"><strong>created:

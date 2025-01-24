@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>{{request.user}}</h1>
+<div class="col-lg-4 mx-auto text-bg-light p-5 rounded-4 shadow">
+    <p class="text-end"><a class="edit-btn"
+            href="{% url 'user-update' %}">Edit</a></p>
+    {% if request.user.first_name and request.user.last_name %}
+    <p><strong>Name: </strong>{{request.user}}</p>
+    {% endif %}
+    <p><strong>Department: </strong>{{request.user.department|upper}}</p>
+    <p><strong>Location: </strong>{{request.user.location|upper}}</p>
+    <p><strong>Phone: </strong>{{request.user.phone}}</p>
+    <p><strong>Computer(s): </strong>
+        {% for computer in request.user.computer_users.all %}
+        <a href="{{computer.get_absolute_url}}">{{computer}}</a>
+        {% endfor %}
+    </p>
+    <hr>
+    <p class="d-flex justify-content-between"><a
+            href="{% url 'change-password' %}">Change password</a><a
+            href="{% url 'logout' %}">Logout</a></p>
+</div>
+{% endblock content %}

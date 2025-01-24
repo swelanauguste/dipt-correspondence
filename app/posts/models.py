@@ -23,11 +23,12 @@ class Incoming(models.Model):
     received = models.DateField(default=timezone.now)
     r_from = models.CharField("received from", max_length=255)
     note = models.TextField(blank=True, null=True)
-    sender = models.TextField(blank=True, null=True)
+    sender = models.CharField(max_length=255, null=True, blank=True)
     dated = models.DateField()
     subject = models.CharField(max_length=255)
     phone = models.CharField(max_length=15, null=True, blank=True)
     phone1 = models.CharField(max_length=15, null=True, blank=True)
+    email = models.EmailField(max_length=254, null=True, blank=True)
     file = models.FileField(upload_to="incoming/")
 
     class Meta:

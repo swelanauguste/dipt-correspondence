@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="py-4 ">
+   <form action=""
+      class="col-lg-6 mx-auto"
+      method="get">
+      <input type="text"
+         id="search"
+         class="form-control form-control-lg rounded-pill mx-auto"
+         name="q"
+         placeholder="Search"><br>
+
+   </form>
+   <div class="text-center">
+      <a class="text-dark me-2"
+         href="?">Not Confidential/Not Urgent</a>
+      <a class="text-dark me-2"
+         href="?conf=1&{{ query_params }}">Confidential</a>
+      <a class="text-dark"
+         href="?urgent=1&{{ query_params }}">Urgent</a>
+   </div>
+</div>
+<div class="">
+   <a class="add-btn"
+      href="{% url 'incoming-create' %}">Add</a>
+   <div class="py-3">
+      {% include 'posts/pagination.html' %}
+
+      {% for ob in object_list %}
+      <p><a class="fw-bold text-dark"
+            href="{{ob.get_absolute_url}}">{{forloop.counter}}.
+            {{ob.subject}}</a>
+      </p>
+      {% empty %}
+      <p class="text-center">No incoming</p>
+      {% endfor %}
+      {% include 'posts/pagination.html' %}
+
+   </div>
+</div>
+
+{% endblock content %}

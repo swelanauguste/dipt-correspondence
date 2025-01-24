@@ -3,7 +3,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("", views.IncomingListView.as_view(), name="incoming-list"),
+    path("list/", views.IncomingListView.as_view(), name="incoming-list"),
     path(
         "incoming/detail/<slug:slug>/",
         views.IncomingDetailView.as_view(),
@@ -15,7 +15,7 @@ urlpatterns = [
         name="incoming-update",
     ),
     path(
-        "incoming/create/", views.IncomingCreateView.as_view(), name="incoming-create"
+        "", views.IncomingCreateView.as_view(), name="incoming-create"
     ),
     path(
         "incoming-comment/<slug:slug>/",

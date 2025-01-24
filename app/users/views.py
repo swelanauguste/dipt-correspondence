@@ -24,12 +24,12 @@ from . import models
 from .forms import CustomPasswordResetForm, UserCustomCreationForm, UserUpdateForm
 from .tasks import forgot_password_email, user_registration_email
 from .tokens import account_activation_token
-from .user_permissions import UserAccessMixin
+from .user_permissions import AdminAccessMixin
 
 backends = get_backends()
 
 
-class UserListView(UserAccessMixin, ListView):
+class UserListView(AdminAccessMixin, ListView):
     model = models.User
     paginate_by = 20
 

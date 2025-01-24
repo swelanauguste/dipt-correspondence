@@ -3,16 +3,16 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<h1>
-    {% if object.pk %}
-    {{object.serial_number|upper}}
-    {% else %}
-    Incoming Form
-    {% endif %}
-</h1>
-<hr>
-<div class="col-lg-6 text-bg-light p-3 rounded-4 shadow ">
 
+<div class="col-lg-6 mx-auto text-bg-light p-5 rounded-4 shadow">
+    <h1>
+        {% if object.pk %}
+        {{object.subject|upper}}
+        {% else %}
+        Incoming Form
+        {% endif %}
+    </h1>
+    <hr>
     <form action=""
         method="post" enctype="multipart/form-data">
         {% csrf_token %}

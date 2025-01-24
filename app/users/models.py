@@ -19,7 +19,9 @@ class User(AbstractUser):
     is_manager = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
     uid = models.UUIDField(default=uuid.uuid4, editable=False)
-    job_title = models.CharField(max_length=255, null=True, blank=True)
+    department = models.ForeignKey(
+        Department, on_delete=models.SET_NULL, null=True, blank=True
+    )
     phone = models.CharField(max_length=7, null=True, blank=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
 
