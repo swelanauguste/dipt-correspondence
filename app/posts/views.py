@@ -12,7 +12,7 @@ from .models import Incoming, IncomingComment, Outgoing, OutgoingComment
 
 class IncomingListView(CreatorAccessMixin, ListView):
     model = Incoming
-    paginate_by = 1
+    paginate_by = 25
 
     def get_queryset(self):
         queryset = super().get_queryset()
