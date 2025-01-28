@@ -161,7 +161,7 @@ SITE_ID = 1
 
 # Redirect URLs
 LOGIN_REDIRECT_URL = "user-detail"
-LOGIN_URL = "/"
+LOGIN_URL = "login"
 LOGOUT_URL = "/"
 
 # Email settings
